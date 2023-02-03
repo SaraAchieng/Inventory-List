@@ -37,6 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Item List</title>
 </head>
 <body>
+    <p>
+        <a href="index.php" class="btn btn-secondary">Go back to items</a>
+    </p>
 <h1>Create New Item</h1>
 <form action="" method="post">
     <div class="mb-3">
