@@ -1,7 +1,7 @@
 <?php
 
 // Connect to database
-$dsn = "mysql:host=localhost;dbname=database_name";
+$pdo = new PDO('host=localhost;dbname=user login', 'root', '');
 $username = "db_username";
 $password = "";
 $options = [
@@ -9,7 +9,7 @@ $options = [
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     PDO::ATTR_EMULATE_PREPARES => false,
 ];
-$pdo = new PDO($dsn, $username, $password, $options);
+$pdo = new PDO($pdo, $username, $password);
 
 // Handle registration form submission
 if (isset($_POST['register'])) {
@@ -47,7 +47,7 @@ if (isset($_POST['login'])) {
 ?>
 
 <!-- Registration form -->
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
 <h1>Register here</h1>
 <form action="" method="post">
