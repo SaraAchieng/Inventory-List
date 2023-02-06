@@ -1,4 +1,5 @@
 <?php
+
 require 'db.php';
 
 
@@ -9,13 +10,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $price = $_POST['price'];
     $date = date('Y-m-d H:i:s');
 
-    $statement = $pdo->prepare("INSERT INTO item_list (name,description, quantity, price, date_added)
-            VALUES(:name, :description, :quantity, :price, :date)");
+    $statement = $pdo->prepare("INSERT INTO item_list (name,description, quantity, price, date_added, user_id)
+            VALUES(:name, :description, :quantity, :price, :date, :user_id");
     $statement->bindValue(':name', $name);
     $statement->bindValue(':description', $description);
     $statement->bindValue(':quantity', $quantity);
     $statement->bindValue(':price', $price);
     $statement->bindValue(':date', $date);
+    $statement->bindValue(':user_id', $_SESSION['user_id']);
     $statement->execute();
 }
 
