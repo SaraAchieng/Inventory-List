@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <p>
-        <a href="index.php" class="btn btn-secondary">Go back to items</a>
+        <a href="items.php" class="btn btn-secondary">Go back to items</a>
     </p>
 <h1>Create New Item</h1>
 <form action="" method="post">
