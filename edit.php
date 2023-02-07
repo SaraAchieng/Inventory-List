@@ -4,7 +4,7 @@ require 'db.php';
 $id = $_GET['id'] ?? null;
 
 if (!$id) {
-    header('Location: index.php');
+    header('Location: items.php');
     exit;
 }
 
