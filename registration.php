@@ -1,23 +1,27 @@
 <?php
-	session_start();
-	require_once 'conn.php';
+	require_once 'db.php';
 	if($_POST){
-		if($_POST['firstname'] != "" || $_POST['lastname'] != "" || $_POST['username'] != "" || $_POST['email'] != "" || $_POST['password'] != ""){
+		if($_POST['first_name'] != "" || $_POST['last_name'] != "" || $_POST['user_name'] != "" || $_POST['email'] != "" || $_POST['password'] != ""){
 			try{
-				$firstname = $_POST['firstname'];
-				$lastname = $_POST['lastname'];
-				$username = $_POST['username'];
+				$firstname = $_POST['first_name'];
+				$lastname = $_POST['last_name'];
+				$username = $_POST['user_name'];
                 $email = $_POST['email'];
 				// md5 encrypted
 				// $password = md5($_POST['password']);
 				$password = $_POST['password'];
-				$sql = "INSERT INTO `users` VALUES ('', '$firstname', '$lastname', '$username', '$password')";
+				$sql = "INSERT INTO users (first_name, last_name,user_name,  email, password) VALUES (:first_name, :last_name, :username, :email, :password)";
+				$statement->bindValue(':first_name', $firstname);
+				$statement->bindValue(':last_name', $lastname);
+				$statement->bindValue(':user_name', $username);
+				$statement->bindValue(':email', $email);
+				$statement->bindValue(':password', $password);
 				$stmt = $pdo->prepare($sql);
-			    $stmt = $pdo->exec($sql);
+			    $stmt->execute();
 			}catch(PDOException $e){
 				echo $e->getMessage();
 			}
-			$_SESSION['message']=array("text"=>"User successfully created.","alert"=>"info");
+			$_SESSION['msg'] = "Registration was successful";
 			$pdo = null;
 			header('location:index.php');
 		}else{
@@ -31,7 +35,7 @@
 <!doctype html>
 <html>
 <head>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" >
 
 </head>
 <body class="bg-dark">

@@ -1,21 +1,22 @@
 <?php
-	session_start();
-	require_once 'conn.php';
+	require_once 'db.php';
 
 	
-		if($_POST['username'] != "" || $_POST['password'] != ""){
-			$username = $_POST['username'];
+		if($_POST['email'] != "" || $_POST['email'] != ""){
+			$email = $_POST['email'];
 			// md5 encrypted
 			// $password = md5($_POST['password']);
 			$password = $_POST['password'];
-			$sql = "SELECT * FROM `user` WHERE `username`=? AND `password`=? ";
+			$sql = "SELECT * FROM users WHERE `email`=:email AND `password`=:password ";
+			$statement->bindValue(':email', $email);
+			$statement->bindValue(':password', $password);
 			$query = $pdo->prepare($sql);
-			$query->execute(array($username,$password));
+			$query->execute();
 			$row = $query->rowCount();
-			$fetch = $query->fetch();
+			$fetch = $query->fetch(PDO::FETCH_ASSOC);
 			if($row > 0) {
-				$_SESSION['user'] = $fetch['user_id'];
-				header("location: dashboard.php");
+				$_SESSION['user'] = $fetch['id'];
+				header("location: dashboard1.php");
 			} else{
 				echo "
 				<script>alert('Invalid username or password')</script>
@@ -33,7 +34,7 @@
 <!doctype html>
 <html>
 <head>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" >
 
 </head>
 <body class="bg-dark">

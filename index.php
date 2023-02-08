@@ -3,6 +3,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
 	</head>
 <body>
 	<div class="col-md-3"></div>
@@ -21,8 +22,8 @@
 				<h4 class="text-success">Login here...</h4>
 				<hr style="border-top:1px groovy #000;">
 				<div class="form-group">
-					<label>Username</label>
-					<input type="text" class="form-control" name="username" />
+					<label>Email</label>
+					<input type="text" class="form-control" name="email" />
 				</div>
 				<div class="form-group">
 					<label>Password</label>
