@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $statement = $pdo->prepare
     ("INSERT INTO item_list (user_id, name, description, quantity, price, date_added)
            VALUES(:user_id, :name, :description, :quantity, :price, :date");
-    $statement->bindValue(':user_id', $_SESSION['user_id']);
+    $statement->bindValue(':user_id', $_SESSION['user']);
     $statement->bindValue(':name', $name);
     $statement->bindValue(':description', $description);
     $statement->bindValue(':quantity', $quantity);
