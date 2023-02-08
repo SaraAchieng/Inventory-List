@@ -16,7 +16,7 @@
 				$statement->bindValue(':user_name', $username);
 				$statement->bindValue(':email', $email);
 				$statement->bindValue(':password', $password);
-				$stmt = $pdo->prepare($sql);
+				$stmt =$pdo->prepare($sql);
 			    $stmt->execute();
 			}catch(PDOException $e){
 				echo $e->getMessage();
@@ -67,7 +67,7 @@
 				</div>
 
 				<button type="submit" name="submit" class="btn btn-primary">Submit</button>
-				<p class="pt-2"> Back to <a href="login.php">Login</a></p>
+				<p class="pt-2"> Back to <a href="index.php">Login</a></p>
 				
 			</form>
 		</div>
