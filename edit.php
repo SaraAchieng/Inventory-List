@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $statement->bindValue(':id', $id);
     $statement->execute(); 
 }
+
     
 
 ?>                        
@@ -48,10 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="list.css" rel="stylesheet">
     <title>Item List</title>
+ 
 </head>
 <body>
     <p>
-        <a href="index.php" class="btn btn-info">Go back to items</a>
+        <a href="items.php" class="btn btn-info">Go back to items</a>
     </p>
 
 
@@ -59,21 +61,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <form action="" method="post">
     <div class="mb-3">
         <label>Item Name</label>
-        <input type="text" name="name" class="form-control" >
+        <input type="text" name="name" value="<?php echo $item['name'] ?>" class="form-control" >
     </div>
     <div class="mb-3">
         <label>Item Description</label>
-        <textarea class="form-control" name="description"></textarea>
+        <textarea class="form-control" name="description"><?php echo $item['description'] ?></textarea>
     </div>
     <div class="mb-3">
         <label>Item Quantity</label>
-        <input type="number" name="quantity" class="form-control" >
+        <input type="number" name="quantity" value="<?php echo $item['quantity'] ?>" class="form-control" >
     </div>
     <div class="mb-3">
         <label>Item Price</label>
-        <input type="number" name="price" class="form-control" >
+        <input type="number" name="price" value="<?php echo $item['price'] ?>" class="form-control" >
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
+    <style>
+.alert {
+  padding: 10px;
+  background-color: green;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+</style>
+<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+   Item updated successfully.
+</div>
+    
+    
+
+      
+
 </form>
 
 
