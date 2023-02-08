@@ -7,7 +7,6 @@ if (!$id) {
     header('Location: items.php');
     exit;
 }
-
 $statement = $pdo->prepare('DELETE FROM item_list WHERE id = :id');
 $statement->bindValue(':id', $id);
 $statement->execute();
