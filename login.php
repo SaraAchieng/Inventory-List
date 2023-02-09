@@ -2,19 +2,20 @@
 	require_once 'db.php';
 
 	
-		if($_POST['email'] != "" || $_POST['email'] != ""){
+		if($_POST['email'] != "" || $_POST['password'] != ""){
 			$email = $_POST['email'];
-			// md5 encrypted
-			// $password = md5($_POST['password']);
 			$password = $_POST['password'];
-			$sql = "SELECT * FROM users WHERE `email`=:email AND `password`=:password ";
-			$statement->bindValue(':email', $email);
-			$statement->bindValue(':password', $password);
-			$query = $pdo->prepare($sql);
-			$query->execute();
-			$row = $query->rowCount();
-			$fetch = $query->fetch(PDO::FETCH_ASSOC);
-			if($row > 0) {
+			$sql = "SELECT * FROM users WHERE email =:email AND password =:password";
+	        $statement = $connect->prepare($sql);
+	        $statement->execute(
+		         array(
+			          'username' => $_POST["username"],
+			          'password' => $_POST["password"]
+		         )
+	        );
+				$count = $statement->rowCount();  
+                if($count > 0)  
+                {
 				$_SESSION['user'] = $fetch['id'];
 				header("location: dashboard1.php");
 			} else{
@@ -29,7 +30,7 @@
 				<script>window.location = 'index.php'</script>
 			";
 		}
-	
+
 ?>
 <!doctype html>
 <html>

@@ -7,10 +7,8 @@
 				$lastname = $_POST['last_name'];
 				$username = $_POST['user_name'];
                 $email = $_POST['email'];
-				// md5 encrypted
-				// $password = md5($_POST['password']);
 				$password = $_POST['password'];
-				$sql = "INSERT INTO users (first_name, last_name,user_name,  email, password) VALUES (:first_name, :last_name, :username, :email, :password)";
+				$sql = "INSERT INTO users (first_name, last_name, user_name,  email, password) VALUES (:first_name, :last_name, :username, :email, :password)";
 				$statement->bindValue(':first_name', $firstname);
 				$statement->bindValue(':last_name', $lastname);
 				$statement->bindValue(':user_name', $username);
