@@ -6,18 +6,18 @@
 			$email = $_POST['email'];
 			$password = $_POST['password'];
 			$sql = "SELECT * FROM users WHERE email =:email AND password =:password";
-	        $statement = $connect->prepare($sql);
-	        $statement->execute(
-		         array(
-			          'username' => $_POST["username"],
-			          'password' => $_POST["password"]
-		         )
-	        );
-				$count = $statement->rowCount();  
+	        $statement = $pdo->prepare($sql);
+	        $statement->bindValue(":email", $email);
+	        $statement->bindValue(":password", $password);
+	        $statement->execute();
+	    	$count = $statement->rowCount();
+	        $user = $statement->fetch(PDO::FETCH_ASSOC);
+
                 if($count > 0)  
                 {
-				$_SESSION['user'] = $fetch['id'];
-				header("location: dashboard1.php");
+			$_SESSION['user_id'] = $user['id'];
+	        $_SESSION['user_fname'] = $user['first_name'];
+				header("location: dashboard.php");
 			} else{
 				echo "
 				<script>alert('Invalid username or password')</script>
@@ -56,7 +56,7 @@
 
 				<button type="submit" name="submit" class="btn btn-primary">Submit</button>
 				
-				<a href="register.php" class="btn btn-primary">Register</a>
+				<a href="registration.php" class="btn btn-primary">Register</a>
 			</form>
 		</div>
 	</div>
