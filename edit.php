@@ -7,6 +7,9 @@ if (!$id) {
     header('Location: items.php');
     exit;
 }
+
+$success = false;
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
     $description = $_POST['description'];
@@ -15,20 +18,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     
 
-    $statement = $pdo->prepare("UPDATE item_list SET name = :name, description = :description, quantity = :quantity, price = :price WHERE id = :id");
-            
+    $statement = $pdo->prepare("UPDATE item_list SET name = :name, description = :description, quantity = :quantity, price = :price WHERE id = :id");       
     $statement->bindValue(':name', $name);
     $statement->bindValue(':description', $description);
     $statement->bindValue(':quantity', $quantity);
     $statement->bindValue(':price', $price);
     $statement->bindValue(':id', $id);
-    $statement->execute(); 
+    $statement->execute();
+
+    $success = true;
 }
 
 
 
-$statement = $pdo->prepare('SELECT * FROM item_list WHERE id = :id');
+$statement = $pdo->prepare('SELECT * FROM item_list WHERE id = :id AND user_id = :user_id');
 $statement->bindValue(':id', $id);
+$statement->bindValue(':user_id', $_SESSION['user_id']);
 $statement->execute();
 $item = $statement->fetch(PDO::FETCH_ASSOC);
 
@@ -44,55 +49,29 @@ $item = $statement->fetch(PDO::FETCH_ASSOC);
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="list.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
     <title>Item List</title>
 
-    <style>
-.alert {
-  padding: 20px;
-  background-color: green;
-  color: white;
-}
-
-.closebtn {
-  margin-left: 15px;
-  color: white;
-  font-weight: bold;
-  float: right;
-  font-size: 22px;
-  line-height: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.closebtn:hover {
-  color: black;
-}
-</style>  
   
 </head>
 
 <body>
-    <?php
-    $submit ="success";
-
-    if($submit === "success"){
-        echo "Item updated successfully";
-      
-
-    }
-        
-    ?>
+    <?php if ($success) : ?>
     <div class="alert">
     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
     Item updated successfully.
     </div> 
+    <?php endif; ?>
 
     <p>
         <a href="items.php" class="btn btn-info">Go back to items</a>
     </p>
 
+<?php if (isset($item['id'])) : ?>    
+
 
 <h1>Edit Item</h1>
+ 
 <form action="" method="post">
     <div class="mb-3">
         <label>Item Name</label>
@@ -113,5 +92,8 @@ $item = $statement->fetch(PDO::FETCH_ASSOC);
     <button type="submit" class="btn btn-primary">Submit</button>
     
 </form> 
+<?php else: ?>
+    Item not found
+<?php endif; ?>    
   </body>
 </html>

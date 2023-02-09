@@ -1,10 +1,10 @@
 <?php
 require 'db.php';
 
-$statement = $pdo->prepare('SELECT * FROM item_list');
+$statement = $pdo->prepare("SELECT * FROM item_list WHERE user_id = :user_id");
+$statement->bindValue(':user_id', $_SESSION['user_id']);
 $statement->execute();
 $items = $statement->fetchAll(PDO::FETCH_ASSOC);
-
 ?>
 
 
@@ -53,10 +53,9 @@ $items = $statement->fetchAll(PDO::FETCH_ASSOC);
       <td><?php echo $item['date_added']?></td>
       <td>
           <a href="edit.php?id=<?php echo $item['id']?>" class="btn btn-primary">Edit</a>
-          <form style="display: inline-block" method="post" id="form-one">
+          <form style="display: inline-block" method="post" action="" id="form-one">
                <input type="hidden" name="id" value="<?php echo $item['id'] ?>">
                <button  type="submit" class="btn btn-danger">Delete</button>
-   
           </form>
       </td>
       
