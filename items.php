@@ -27,7 +27,7 @@ $items = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 <p>
   <a href="create.php" class="btn btn-success">Create Item</a>
-  <a href="dashboard1.php" class="btn btn-secondary">Home</a>
+  <a href="dashboard.php" class="btn btn-secondary">Home</a>
  
 </p>
 <table class="table">

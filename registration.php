@@ -8,17 +8,18 @@
 				$username = $_POST['user_name'];
                 $email = $_POST['email'];
 				$password = $_POST['password'];
-				$sql = "INSERT INTO users (first_name, last_name, user_name,  email, password) VALUES (:first_name, :last_name, :username, :email, :password)";
+				$sql = "INSERT INTO users (first_name, last_name, username,  email, password) VALUES (:first_name, :last_name, :username, :email, :password)";
+			    $statement = $pdo->prepare($sql);
 				$statement->bindValue(':first_name', $firstname);
 				$statement->bindValue(':last_name', $lastname);
-				$statement->bindValue(':user_name', $username);
+				$statement->bindValue(':username', $username);
 				$statement->bindValue(':email', $email);
 				$statement->bindValue(':password', $password);
 			    $statement->execute();
 			
 			$_SESSION['msg'] = "Registration was successful";
 			
-			$pdo = null;
+		
 			header('location:index.php');
 		}catch(PDOException $e){
 			echo $e->getMessage();
