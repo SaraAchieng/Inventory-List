@@ -14,14 +14,15 @@
 				$statement->bindValue(':user_name', $username);
 				$statement->bindValue(':email', $email);
 				$statement->bindValue(':password', $password);
-				$stmt =$pdo->prepare($sql);
-			    $stmt->execute();
-			}catch(PDOException $e){
-				echo $e->getMessage();
-			}
+			    $statement->execute();
+			
 			$_SESSION['msg'] = "Registration was successful";
+			
 			$pdo = null;
 			header('location:index.php');
+		}catch(PDOException $e){
+			echo $e->getMessage();
+		}
 		}else{
 			echo "
 				<script>alert('Please fill up the required field!')</script>

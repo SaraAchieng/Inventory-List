@@ -1,4 +1,6 @@
 <?php 
+session_start();
+	if(isset($_SESSION['user_id']))
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,12 +15,6 @@
 		<hr style="border-top:1px dotted #ccc;"/>
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
-			<?php if($_SESSION): ?>
-			<?php 
-				endif;
-				// clearing the message
-				unset($_SESSION);
-			?>
 			<form action="login.php" method="POST">	
 				<h4 class="text-success">Login here...</h4>
 				<hr style="border-top:1px groovy #000;">
