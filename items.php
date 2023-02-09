@@ -53,7 +53,7 @@ $items = $statement->fetchAll(PDO::FETCH_ASSOC);
       <td><?php echo $item['date_added']?></td>
       <td>
           <a href="edit.php?id=<?php echo $item['id']?>" class="btn btn-primary">Edit</a>
-          <form style="display: inline-block" method="post" action="" id="form-one">
+          <form style="display: inline-block" method="post" action="">
                <input type="hidden" name="id" value="<?php echo $item['id'] ?>">
                <button  type="submit" class="btn btn-danger">Delete</button>
           </form>
@@ -64,16 +64,20 @@ $items = $statement->fetchAll(PDO::FETCH_ASSOC);
   </tbody>
 </table>
 <script>
-    const formOne = document.getElementById('form-one');
-    formOne.addEventListener('submit', (event) => {
+    const forms = document.querySelectorAll('form');
+
+    forms.forEach(form => {
+
+    form.addEventListener('submit', (event) => {
         event.preventDefault()
 
         let confirmation = confirm('Are you sure?')
 
         if (confirmation) { 
-        formOne.action = 'delete.php'    
-        formOne.submit();
+        form.action = 'delete.php'    
+        form.submit();
         }
+      })
     })
 
 </script>
