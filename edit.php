@@ -7,13 +7,6 @@ if (!$id) {
     header('Location: items.php');
     exit;
 }
-
-$statement = $pdo->prepare('SELECT * FROM item_list WHERE id = :id');
-$statement->bindValue(':id', $id);
-$statement->execute();
-$item = $statement->fetch(PDO::FETCH_ASSOC);
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
     $description = $_POST['description'];
@@ -32,11 +25,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $statement->execute(); 
 }
 
-    
+
+
+$statement = $pdo->prepare('SELECT * FROM item_list WHERE id = :id');
+$statement->bindValue(':id', $id);
+$statement->execute();
+$item = $statement->fetch(PDO::FETCH_ASSOC);
 
 ?>                        
-
-
 
 <!doctype html>
 <html lang="en">
@@ -49,9 +45,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="list.css" rel="stylesheet">
     <title>Item List</title>
- 
+
+    <style>
+.alert {
+  padding: 20px;
+  background-color: green;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+</style>  
+  
 </head>
+
 <body>
+    <?php
+    $submit ="success";
+
+    if($submit === "success"){
+        echo "Item updated successfully";
+      
+
+    }
+        
+    ?>
+    <div class="alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    Item updated successfully.
+    </div> 
+
     <p>
         <a href="items.php" class="btn btn-info">Go back to items</a>
     </p>
@@ -76,40 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="number" name="price" value="<?php echo $item['price'] ?>" class="form-control" >
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
-    <style>
-.alert {
-  padding: 10px;
-  background-color: green;
-  color: white;
-}
-
-.closebtn {
-  margin-left: 15px;
-  color: white;
-  font-weight: bold;
-  float: right;
-  font-size: 22px;
-  line-height: 10px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.closebtn:hover {
-  color: black;
-}
-</style>
-<div class="alert">
-  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-   Item updated successfully.
-</div>
     
-    
-
-      
-
-</form>
-
-
-    
+</form> 
   </body>
 </html>
